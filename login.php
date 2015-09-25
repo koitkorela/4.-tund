@@ -60,6 +60,14 @@
 				$password_hash = hash("sha512", $create_password);
 				echo "<br>";
 				echo $password_hash;
+				
+				$stmt = $mysqli->prepare("INSERT INTO user_sample(email, password) VALUES(?,?)");
+				echo $mysqli->error
+				//asendame küsimärgid muutujate väärtustega
+				//ss- s tähendab sring iga muutuja kohta
+				$stmt->bind_param("ss", $create_email, $password_hash);
+				$stmt-> execute();
+				$stmt-> close();
 			}
     } // create if end
 	}
@@ -70,6 +78,8 @@
   	$data = htmlspecialchars($data); //muudab sümbolid tekstiks
   	return $data;
   }
+  //mysqli ühendus kinni
+  $mysqli->close();
 ?>
 <!DOCTYPE html>
 <html>
